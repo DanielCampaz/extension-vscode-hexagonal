@@ -1,0 +1,56 @@
+{
+  "name": "hexagonal-arquitecture-folders",
+  "displayName": "Hexagonal-Arquitecture-Folders",
+  "description": "Create folders whit structure hexagonal",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "hexagonal-arquitecture-folders.createfolder",
+        "title": "Create Folders (Hexagonal Arquitecture)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "resourceLangId == 'plaintext'",
+          "command": "hexagonal-arquitecture-folders.createfolder",
+          "group": "navigation"
+        },
+        {
+          "command": "hexagonal-arquitecture-folders.createfolder",
+          "group": "0_new"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test",
+    "generate:vsix": "vsce package",
+    "install:vsix": "code --install-extension hexagonal-arquitecture-folders-0.0.1.vsix"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.8"
+  }
+}
