@@ -9,15 +9,11 @@ import JsStrategyCreated from "./strategies/js/js-strategy";
 import PythonStrategyCreated from "./strategies/python/py-strategy";
 import JavaStrategyCreated from "./strategies/java/java-strategy";
 import GoStrategyCreated from "./strategies/golang/go-strategy";
+import { capitalizeFirstLetterConditional } from "./utils";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
-function capitalizeFirstLetter(inputString: string): string {
-  return (
-    inputString.substring(0, 1).toUpperCase() +
-    inputString.substring(1).toLowerCase()
-  );
-}
+
 
 export function activate(context: vscode.ExtensionContext) {
   console.log(
@@ -34,7 +30,7 @@ export function activate(context: vscode.ExtensionContext) {
           .then((folderNames) => {
             if (folderNames) {
               //const folderPath = vscode.workspace.rootPath ? path.join(vscode.workspace.rootPath, folderName) : '';
-              const folderName = capitalizeFirstLetter(folderNames);
+              const folderName = capitalizeFirstLetterConditional(languageId, folderNames);
               const folderPath = path.join(resource.fsPath, folderName);
               if (!fs.existsSync(folderPath)) {
                 fs.mkdirSync(folderPath);
