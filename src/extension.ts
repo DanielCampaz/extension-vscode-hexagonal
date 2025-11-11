@@ -28,7 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
           .then(async (folderNames) => {
             if (folderNames) {
               //const folderPath = vscode.workspace.rootPath ? path.join(vscode.workspace.rootPath, folderName) : '';
-              const opciones = ["Detect Automatically","TypeScript (ts)", "JavaScript (js)", "Python (py)", "Java (java)", "Go (go)",];
+              const opciones = ["Detect Automatically","TypeScript (.ts)", "JavaScript (.js)", "Python (.py)", "Java (.java)", "Go (.go)",];
               const seleccion = await vscode.window.showQuickPick(opciones, {
                 placeHolder: 'Selecciona una opción',
               });
@@ -156,11 +156,11 @@ function getExtensionSelect(seleccion: string | undefined, lenguajeIdAutomatical
   if(seleccion === undefined) { return lenguajeIdAutomatical; };
   const map: Record<string, string> = {
     "Detect Automatically": lenguajeIdAutomatical,
-    "TypeScript (ts)": "typescript",
-    "JavaScript (js)": "javascript",
-    "Python (py)": "python",
-    "Go (go)": "go",
-    "Java (java)": "java"
+    "TypeScript (.ts)": "typescript",
+    "JavaScript (.js)": "javascript",
+    "Python (.py)": "python",
+    "Go (.go)": "go",
+    "Java (.java)": "java"
   };
   return map[seleccion] || lenguajeIdAutomatical;
 }
