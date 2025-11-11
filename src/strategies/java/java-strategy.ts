@@ -9,7 +9,7 @@ export default class JavaStrategyCreated implements StrategyHexagonalFolder {
                 return `${capitalizeFirstLetter(folderName)}.${extension}`;
             },
             contentFile: (folderName: string): string => {
-                return `// TODO: Your content \n package; //tab package \n \n interface ${capitalizeFirstLetter(folderName)} {\n // Your Code\n }`
+                return `// TODO: Your content \n package; //tab package \n \n interface ${capitalizeFirstLetter(folderName)} {\n // Your Code\n }`;
             }
         };
     }
@@ -19,7 +19,7 @@ export default class JavaStrategyCreated implements StrategyHexagonalFolder {
                 return `${capitalizeFirstLetter(folderName)}Usecase.${extension}`;
             },
             contentFile: (folderName: string): string => {
-                return `// TODO: Your content \n package; //tab package \n \n interface ${capitalizeFirstLetter(folderName)}UseCase {\n // Your Code\n }`
+                return `// TODO: Your content \n package; //tab package \n \n interface ${capitalizeFirstLetter(folderName)}UseCase {\n // Your Code\n }`;
             }
         };
     }
@@ -29,7 +29,7 @@ export default class JavaStrategyCreated implements StrategyHexagonalFolder {
                 return `${capitalizeFirstLetter(folderName)}Controller.${extension}`;
             },
             contentFile: (folderName: string): string => {
-                return `// TODO: Your content \n package; //tab package \n \n class ${capitalizeFirstLetter(folderName)}Controller {\n // Your Code\n }`
+                return `// TODO: Your content \n package; //tab package \n \n class ${capitalizeFirstLetter(folderName)}Controller {\n // Your Code\n }`;
             }
         };
     }

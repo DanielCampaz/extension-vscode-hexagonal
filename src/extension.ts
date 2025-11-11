@@ -9,7 +9,6 @@ import JsStrategyCreated from "./strategies/js/js-strategy";
 import PythonStrategyCreated from "./strategies/python/py-strategy";
 import JavaStrategyCreated from "./strategies/java/java-strategy";
 import GoStrategyCreated from "./strategies/golang/go-strategy";
-import { capitalizeFirstLetterConditional } from "./utils";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -35,7 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
               const languageIdAutomatical = detectLanguage();
               const lenguageId = getExtensionSelect(seleccion, languageIdAutomatical);
               const fileExtension = getFileExtension(lenguageId);
-              const folderName = capitalizeFirstLetterConditional(lenguageId, folderNames);
+              const folderName = folderNames.toLowerCase();
               const folderPath = path.join(resource.fsPath, folderName);
               if (!fs.existsSync(folderPath)) {
                 fs.mkdirSync(folderPath);
