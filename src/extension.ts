@@ -19,18 +19,23 @@ export function activate(context: vscode.ExtensionContext) {
   console.log(
     'Congratulations, your extension "hexagonal-arquitecture-folders" is now active!'
   );
-    const languageId = detectLanguage();
-    const fileExtension = getFileExtension(languageId);
-  let createFolder = vscode.commands.registerCommand(
-    "hexagonal-arquitecture-folders.createfolder",
-    (resource: vscode.Uri) => {
-      if (resource && resource.fsPath) {
-        vscode.window
+    let createFolder = vscode.commands.registerCommand(
+      "hexagonal-arquitecture-folders.createfolder",
+      (resource: vscode.Uri) => {
+        if (resource && resource.fsPath) {
+          vscode.window
           .showInputBox({ prompt: "Enter folder name:" })
-          .then((folderNames) => {
+          .then(async (folderNames) => {
             if (folderNames) {
               //const folderPath = vscode.workspace.rootPath ? path.join(vscode.workspace.rootPath, folderName) : '';
-              const folderName = capitalizeFirstLetterConditional(languageId, folderNames);
+              const opciones = ["Detect Automatically","TypeScript (ts)", "JavaScript (js)", "Python (py)", "Java (java)", "Go (go)",];
+              const seleccion = await vscode.window.showQuickPick(opciones, {
+                placeHolder: 'Selecciona una opción',
+              });
+              const languageIdAutomatical = detectLanguage();
+              const lenguageId = getExtensionSelect(seleccion, languageIdAutomatical);
+              const fileExtension = getFileExtension(lenguageId);
+              const folderName = capitalizeFirstLetterConditional(lenguageId, folderNames);
               const folderPath = path.join(resource.fsPath, folderName);
               if (!fs.existsSync(folderPath)) {
                 fs.mkdirSync(folderPath);
@@ -40,7 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
                 });
 
                 // Crear Archivo segun lenguaje
-                const strategy = getStrategy(languageId).execute();
+                const strategy = getStrategy(lenguageId).execute();
                 //const domainFile = `${folderName.toLowerCase()}.${fileExtension}`;
                 const domainFile = strategy.getDomain().getFileName(
                   folderName,
@@ -147,6 +152,19 @@ function getFileExtension(languageId: string): string {
   return map[languageId.toLowerCase()] || "ts";
 }
 
+function getExtensionSelect(seleccion: string | undefined, lenguajeIdAutomatical: string) {
+  if(seleccion === undefined) { return lenguajeIdAutomatical; };
+  const map: Record<string, string> = {
+    "Detect Automatically": lenguajeIdAutomatical,
+    "TypeScript (ts)": "typescript",
+    "JavaScript (js)": "javascript",
+    "Python (py)": "python",
+    "Go (go)": "go",
+    "Java (java)": "java"
+  };
+  return map[seleccion] || lenguajeIdAutomatical;
+}
+
 function getStrategy(languageId: string): Strategy {
   const map: Record<string, StrategyHexagonalFolder> = {
     typescript: new TsStrategyCreated(),
@@ -162,7 +180,7 @@ function getStrategy(languageId: string): Strategy {
   }
   return {
     execute: () => strategy,
-  }
+  };
 }
 
 export function deactivate() {}
